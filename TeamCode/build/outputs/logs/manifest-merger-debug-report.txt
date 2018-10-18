@@ -9,6 +9,8 @@ MERGED from [:RobotCore-release:] /Users/robotadmin/.gradle/caches/transforms-1/
 MERGED from [:Hardware-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Hardware-release.aar/a026fcc9013f8e1fd3041c252136f24b/AndroidManifest.xml:2:1-11:12
 MERGED from [:FtcCommon-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/FtcCommon-release.aar/e928a9abb07e1b031e46a6f2f81ee730/AndroidManifest.xml:3:1-235:12
 MERGED from [:WirelessP2p-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/WirelessP2p-release.aar/b8fe3819e93567169cbf9564f943ca71/AndroidManifest.xml:2:1-11:12
+MERGED from [:ender] /Users/robotadmin/Desktop/FTC2018-2019/ender/build/intermediates/manifests/full/debug/AndroidManifest.xml:2:1-17:12
+MERGED from [:openCVLibrary3] /Users/robotadmin/Desktop/FTC2018-2019/openCVLibrary3/build/intermediates/manifests/full/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:Inspection-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Inspection-release.aar/3f40902ef32b34a66e5411f4bb4e9eff/AndroidManifest.xml:2:1-32:12
 MERGED from [:Blocks-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Blocks-release.aar/f02023a083e77c8edb4abaff469626c1/AndroidManifest.xml:2:1-41:12
 INJECTED from /Users/robotadmin/Desktop/FTC2018-2019/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
@@ -36,10 +38,14 @@ MERGED from [:RobotCore-release:] /Users/robotadmin/.gradle/caches/transforms-1/
 MERGED from [:RobotCore-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/RobotCore-release.aar/0892b662d88d5e7940d2270bce27a472/AndroidManifest.xml:77:5-96:19
 MERGED from [:FtcCommon-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/FtcCommon-release.aar/e928a9abb07e1b031e46a6f2f81ee730/AndroidManifest.xml:23:5-233:19
 MERGED from [:FtcCommon-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/FtcCommon-release.aar/e928a9abb07e1b031e46a6f2f81ee730/AndroidManifest.xml:23:5-233:19
+MERGED from [:ender] /Users/robotadmin/Desktop/FTC2018-2019/ender/build/intermediates/manifests/full/debug/AndroidManifest.xml:11:5-15:19
+MERGED from [:ender] /Users/robotadmin/Desktop/FTC2018-2019/ender/build/intermediates/manifests/full/debug/AndroidManifest.xml:11:5-15:19
 MERGED from [:Inspection-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Inspection-release.aar/3f40902ef32b34a66e5411f4bb4e9eff/AndroidManifest.xml:19:5-30:19
 MERGED from [:Inspection-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Inspection-release.aar/3f40902ef32b34a66e5411f4bb4e9eff/AndroidManifest.xml:19:5-30:19
 MERGED from [:Blocks-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Blocks-release.aar/f02023a083e77c8edb4abaff469626c1/AndroidManifest.xml:18:5-39:19
 MERGED from [:Blocks-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Blocks-release.aar/f02023a083e77c8edb4abaff469626c1/AndroidManifest.xml:18:5-39:19
+	android:supportsRtl
+		ADDED from [:ender] /Users/robotadmin/Desktop/FTC2018-2019/ender/build/intermediates/manifests/full/debug/AndroidManifest.xml:14:9-35
 	android:label
 		ADDED from [:FtcRobotController] /Users/robotadmin/Desktop/FTC2018-2019/FtcRobotController/build/intermediates/manifests/full/debug/AndroidManifest.xml:17:9-41
 	android:largeHeap
@@ -66,6 +72,10 @@ MERGED from [:FtcCommon-release:] /Users/robotadmin/.gradle/caches/transforms-1/
 MERGED from [:FtcCommon-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/FtcCommon-release.aar/e928a9abb07e1b031e46a6f2f81ee730/AndroidManifest.xml:8:5-10:41
 MERGED from [:WirelessP2p-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/WirelessP2p-release.aar/b8fe3819e93567169cbf9564f943ca71/AndroidManifest.xml:5:5-7:41
 MERGED from [:WirelessP2p-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/WirelessP2p-release.aar/b8fe3819e93567169cbf9564f943ca71/AndroidManifest.xml:5:5-7:41
+MERGED from [:ender] /Users/robotadmin/Desktop/FTC2018-2019/ender/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:ender] /Users/robotadmin/Desktop/FTC2018-2019/ender/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:openCVLibrary3] /Users/robotadmin/Desktop/FTC2018-2019/openCVLibrary3/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:openCVLibrary3] /Users/robotadmin/Desktop/FTC2018-2019/openCVLibrary3/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:Inspection-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Inspection-release.aar/3f40902ef32b34a66e5411f4bb4e9eff/AndroidManifest.xml:7:5-9:41
 MERGED from [:Inspection-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Inspection-release.aar/3f40902ef32b34a66e5411f4bb4e9eff/AndroidManifest.xml:7:5-9:41
 MERGED from [:Blocks-release:] /Users/robotadmin/.gradle/caches/transforms-1/files-1.1/Blocks-release.aar/f02023a083e77c8edb4abaff469626c1/AndroidManifest.xml:7:5-9:41
