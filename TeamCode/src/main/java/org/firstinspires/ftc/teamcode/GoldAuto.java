@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
+import org.corningrobotics.enderbots.endercv.OpenCVPipeline;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -11,9 +13,11 @@ import org.opencv.imgproc.Imgproc;
 import java.util.List;
 import java.util.Locale;
 
-@TeleOp(name="Gold Auto", group="Test")
+@Autonomous(name="Gold Auto", group="Test")
 public class GoldAuto extends OpMode {
     private GoldManager goldManager;
+    private final int cubeSize = 100;
+
     @Override
     public void init() {
         goldManager = new GoldManager();
@@ -25,15 +29,32 @@ public class GoldAuto extends OpMode {
 
     @Override
     public void loop() {
-        //goldManager.setShowCountours(gamepad1.x);
+        goldManager.setShowThreshhold(gamepad1.x);
 
-        // get a list of contours from the vision system
+        //List of Contours of detected gold
         List<MatOfPoint> contours = goldManager.getContours();
+
+        //Index of contour that best fits expected result;
+        int IxOfBestFit = 0;
+
+        //Error of best fit contour
+        double lowestError = Integer.MAX_VALUE;
+
         for (int i = 0; i < contours.size(); i++) {
-            Rect boundingRect = Imgproc.boundingRect(contours.get(i));
-            telemetry.addData("contour" + Integer.toString(i),
-                    String.format(Locale.getDefault(), "(%d, %d)", (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2));
+            //Rect boundingRect = Imgproc.boundingRect(contours.get(i));
+
+
+            double error = Math.abs(cubeSize - Imgproc.contourArea(contours.get(i)));
+
+            if(error < lowestError){
+                lowestError = error;
+                IxOfBestFit = i;
+            }
+            //telemetry.addData("contour" + Integer.toString(i), String.format(Locale.getDefault(), "(%d, %d)", (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2));
         }
+
+        Rect boundingRect = Imgproc.boundingRect(contours.get(IxOfBestFit));
+        telemetry.addData("contour", boundingRect.x + ", " + boundingRect.y);
     }
 
     public void stop() {

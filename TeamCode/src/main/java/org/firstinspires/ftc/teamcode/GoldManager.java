@@ -13,6 +13,7 @@ import java.util.List;
 
 public class GoldManager extends OpenCVPipeline {
     private boolean showContours = true;
+    private boolean showThreshhold = false;
 
     private Mat hsv = new Mat();
     private Mat thresholded = new Mat();
@@ -21,6 +22,9 @@ public class GoldManager extends OpenCVPipeline {
 
     public synchronized void setShowCountours(boolean enabled) {
         showContours = enabled;
+    }
+    public synchronized void setShowThreshhold(boolean enabled) {
+        showThreshhold = enabled;
     }
     public synchronized List<MatOfPoint> getContours() {
         return contours;
@@ -32,13 +36,12 @@ public class GoldManager extends OpenCVPipeline {
         // RGBA to HSV, because HSV is much easier to detect color with
         Imgproc.cvtColor(rgba, hsv, Imgproc.COLOR_RGB2HSV, 3);
 
-        //TODO detect gold color
-        Core.inRange(hsv, new Scalar(90, 128, 30), new Scalar(170, 255, 255), thresholded);
 
-        //TODO detect shape
+        Imgproc.blur(hsv, hsv, new Size(26, 26));
 
-        //TODO adjust blur to accurately detect shape
-        Imgproc.blur(thresholded, thresholded, new Size(3, 3));
+        Core.inRange(hsv, new Scalar(2, 188, 85), new Scalar(35, 255, 255), thresholded);
+
+        //TODO detect shape?
 
 
         contours = new ArrayList<>();
@@ -48,7 +51,9 @@ public class GoldManager extends OpenCVPipeline {
         if (showContours) {
             Imgproc.drawContours(rgba, contours, -1, new Scalar(0, 0, 255), 3, 8);
         }
-
+        if(showThreshhold){
+            return thresholded;
+        }
         return rgba;
     }
 }
