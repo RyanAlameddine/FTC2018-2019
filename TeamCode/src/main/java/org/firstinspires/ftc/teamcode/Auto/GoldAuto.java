@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
 import org.corningrobotics.enderbots.endercv.OpenCVPipeline;
+import org.firstinspires.ftc.teamcode.GoldManager;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -13,7 +14,7 @@ import org.opencv.imgproc.Imgproc;
 import java.util.List;
 import java.util.Locale;
 
-@Autonomous(name="Gold Auto", group="Test")
+@Autonomous(name="GoldAuto", group="Production")
 public class GoldAuto extends OpMode {
     private GoldManager goldManager;
     private final int cubeSize = 100;

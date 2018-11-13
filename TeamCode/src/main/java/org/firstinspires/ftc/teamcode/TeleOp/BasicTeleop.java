@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="BasicTeleop", group="Test")
+import org.firstinspires.ftc.teamcode.Projects.Project0;
+
+@TeleOp(name="BasicTeleop", group="Production")
 public class BasicTeleop extends LinearOpMode{
 
     @Override

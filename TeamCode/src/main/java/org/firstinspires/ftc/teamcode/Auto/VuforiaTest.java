@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.vuforia.HINT;
@@ -14,9 +14,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.Projects.ProjectNull;
+import org.firstinspires.ftc.teamcode.R;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="BasicAuto", group="Test")
-public class BasicAuto extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="VuforiaTest", group="Test")
+public class VuforiaTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
