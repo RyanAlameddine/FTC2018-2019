@@ -26,7 +26,7 @@ public class Project0
     public BNO055IMU imu = null;
 
     /* local OpMode members. */
-    HardwareMap         hwMap   = null;
+    private HardwareMap hwMap   = null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Initialize standard Hardware interfaces */

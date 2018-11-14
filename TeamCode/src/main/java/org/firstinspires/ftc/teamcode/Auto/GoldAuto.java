@@ -2,17 +2,14 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
-import org.corningrobotics.enderbots.endercv.OpenCVPipeline;
 import org.firstinspires.ftc.teamcode.GoldManager;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
-import java.util.Locale;
 
 @Autonomous(name="GoldAuto", group="Production")
 public class GoldAuto extends OpMode {
@@ -24,13 +21,13 @@ public class GoldAuto extends OpMode {
         goldManager = new GoldManager();
 
         goldManager.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
-        goldManager.setShowCountours(true);
+        goldManager.setShowContours(true);
         goldManager.enable();
     }
 
     @Override
     public void loop() {
-        goldManager.setShowThreshhold(gamepad1.x);
+        goldManager.setShowThreshold(gamepad1.x);
 
         //List of Contours of detected gold
         List<MatOfPoint> contours = goldManager.getContours();

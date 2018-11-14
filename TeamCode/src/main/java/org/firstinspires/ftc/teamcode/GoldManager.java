@@ -20,10 +20,10 @@ public class GoldManager extends OpenCVPipeline {
 
     private List<MatOfPoint> contours = new ArrayList<>();
 
-    public synchronized void setShowCountours(boolean enabled) {
+    public synchronized void setShowContours(boolean enabled) {
         showContours = enabled;
     }
-    public synchronized void setShowThreshhold(boolean enabled) {
+    public synchronized void setShowThreshold(boolean enabled) {
         showThreshhold = enabled;
     }
     public synchronized List<MatOfPoint> getContours() {
