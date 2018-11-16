@@ -15,7 +15,7 @@ public class GoldManager extends OpenCVPipeline {
     private boolean showContours = true;
     private boolean showThreshhold = false;
 
-    private Mat hsv = new Mat();
+    public  Mat hsv = new Mat();
     private Mat thresholded = new Mat();
 
     private List<MatOfPoint> contours = new ArrayList<>();
