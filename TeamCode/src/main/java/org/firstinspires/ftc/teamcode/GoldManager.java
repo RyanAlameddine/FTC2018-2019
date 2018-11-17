@@ -39,10 +39,7 @@ public class GoldManager extends OpenCVPipeline {
 
         Imgproc.blur(hsv, hsv, new Size(26, 26));
 
-        Core.inRange(hsv, new Scalar(2, 188, 85), new Scalar(35, 255, 255), thresholded);
-
-        //TODO detect shape?
-
+        Core.inRange(hsv, new Scalar(2, 175, 85), new Scalar(35, 255, 255), thresholded);
 
         contours = new ArrayList<>();
 

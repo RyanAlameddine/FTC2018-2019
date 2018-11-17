@@ -12,18 +12,16 @@ public class BasicTeleop extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Project0 robot = new Project0();
         float speedMultiplier = 1;
-        boolean aPressed = false;
         robot.init(hardwareMap);
 
         //Waiting for start
         waitForStart();
 
         while(opModeIsActive()) {
-            if(gamepad1.a && !aPressed){
-                aPressed = true;
-                speedMultiplier *= -1;
-            }else{
-                aPressed = false;
+            if(gamepad1.a){
+                speedMultiplier = .5f;
+            }else if(!gamepad1.a){
+                speedMultiplier = 1f;
             }
             robot.rightMotor.setPower(gamepad1.right_stick_y * speedMultiplier);
             robot.leftMotor .setPower(gamepad1.left_stick_y  * speedMultiplier);
