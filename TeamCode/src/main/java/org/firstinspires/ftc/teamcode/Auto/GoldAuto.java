@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
@@ -12,7 +11,6 @@ import org.firstinspires.ftc.teamcode.Projects.Project0;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.imgproc.Moments;
 
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class GoldAuto extends LinearOpMode {
         waitForStart();
         eTime.reset();
 
-        while(opModeIsActive() && eTime.time() < 3.5) {
+        while(opModeIsActive() && eTime.time() < 2) {
             goldManager.setShowThreshold(gamepad1.x);
 
             //List of Contours of detected gold
@@ -50,42 +48,52 @@ public class GoldAuto extends LinearOpMode {
             double topFitness = 0;
             Rect bestRect = new Rect(0, 0, 1, 1);
             for (int i = 0; i < contours.size(); i++) {
-
                 Rect boundingRect = Imgproc.boundingRect(contours.get(i));
-                if(boundingRect.size().area() > topFitness){
+                double fitness = boundingRect.size().area();
+                vectorF = new VectorF(boundingRect.x + boundingRect.width / 2f, boundingRect.y + boundingRect.height / 2f);
+                if(vectorF.get(0) > goldManager.hsv.cols() / 2){
+                    fitness = 0;
+                }
+                if(fitness > topFitness){
                     indexofBestFit = i;
-                    topFitness = boundingRect.size().area();
+                    topFitness = fitness;
                     //rectangle with the best fitness
                     bestRect = boundingRect;
                 }
             }
             vectorF = new VectorF(bestRect.x + bestRect.width / 2f, bestRect.y + bestRect.height / 2f);
 
-            int screenThird = goldManager.hsv.cols() / 3;
-            if (vectorF.get(0) < screenThird) {
+            int screenThird = goldManager.hsv.rows() / 3;
+            if (vectorF.get(1) < screenThird) {
                 location = -1;
             }
-            if (vectorF.get(0) > 2 * screenThird) {
+            else if (vectorF.get(1) > 2 * screenThird) {
                 location = 1;
             }
 
             telemetry.addData("Rows", goldManager.hsv.rows());
+            telemetry.addData("Cols", goldManager.hsv.cols());
             telemetry.addData("Loc", location);
             telemetry.update();
 
             if(location == -1){
-                robot.leftMotor.setPower(.6);
-                robot.rightMotor.setPower(-.6);
+                robot.leftMotor .setPower(.7);
+                robot.rightMotor.setPower(-.7);
             }else if(location == 1){
-                robot.leftMotor.setPower(-.6);
-                robot.rightMotor.setPower(.6);
+                robot.leftMotor .setPower(-.7);
+                robot.rightMotor.setPower(.7);
             }else{
-                robot.leftMotor.setPower(-.6);
-                robot.rightMotor.setPower(-.6);
+                robot.leftMotor .setPower(-.3);
+                robot.rightMotor.setPower(-.3);
             }
         }
 
-        robot.leftMotor.setPower(0);
+        while(opModeIsActive() && eTime.time() < 5.5) {
+            robot.leftMotor .setPower(-.6);
+            robot.rightMotor.setPower(-.6);
+        }
+
+        robot.leftMotor .setPower(0);
         robot.rightMotor.setPower(0);
 
         goldManager.disable();

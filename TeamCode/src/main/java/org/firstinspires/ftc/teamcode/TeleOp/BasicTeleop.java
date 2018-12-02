@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Projects.Project0;
+import org.firstinspires.ftc.teamcode.Projects.Project1;
 
 @TeleOp(name="Teleop", group="Production")
 public class BasicTeleop extends LinearOpMode{
@@ -25,9 +26,17 @@ public class BasicTeleop extends LinearOpMode{
             }
             robot.rightMotor.setPower(gamepad1.right_stick_y * speedMultiplier);
             robot.leftMotor .setPower(gamepad1.left_stick_y  * speedMultiplier);
+
+            /*
+            if(gamepad1.dpad_up){
+                robot.liftMotor.setPower(1);
+            }else if(gamepad1.dpad_down){
+                robot.liftMotor.setPower(-1);
+            }else{
+                robot.liftMotor.setPower(0);
+            }*/
         }
 
-        robot.rightMotor.setPower(0);
-        robot.leftMotor .setPower(0);
+        robot.stop();
     }
 }

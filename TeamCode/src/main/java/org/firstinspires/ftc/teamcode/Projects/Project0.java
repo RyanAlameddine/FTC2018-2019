@@ -56,6 +56,10 @@ public class Project0
         rightMotor.setPower(0);
     }
 
+    public void stop(){
+        leftMotor .setPower(0);
+        rightMotor.setPower(0);
+    }
 
     /**
      *
