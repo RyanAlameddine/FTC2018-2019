@@ -33,7 +33,7 @@ public class GoldAuto extends LinearOpMode {
         waitForStart();
         eTime.reset();
 
-        while(opModeIsActive() && eTime.time() < 2) {
+        while(opModeIsActive() && eTime.time() < 2.5) {
             goldManager.setShowThreshold(gamepad1.x);
 
             //List of Contours of detected gold
@@ -83,8 +83,8 @@ public class GoldAuto extends LinearOpMode {
                 robot.leftMotor .setPower(-.7);
                 robot.rightMotor.setPower(.7);
             }else{
-                robot.leftMotor .setPower(-.3);
-                robot.rightMotor.setPower(-.3);
+                robot.leftMotor .setPower(-.2);
+                robot.rightMotor.setPower(-.2);
             }
         }
 

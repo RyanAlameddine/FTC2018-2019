@@ -14,5 +14,8 @@ public class ProjectNull
 
     private void loadIMU(){
     }
+
+    public void stop(){
+    }
 }
 

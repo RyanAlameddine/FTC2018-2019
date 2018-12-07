@@ -7,17 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * Simple Mecanum drive configuration
- *
- * Created September 21, 2017 by Ryan Alameddine
- *
- *
- * @author Ryan Alameddine
- *
- * @version 4.0
- */
-
 public class Project1
 {
     /* Public OpMode members. */
