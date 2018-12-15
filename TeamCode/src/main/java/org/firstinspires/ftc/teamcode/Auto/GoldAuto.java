@@ -8,6 +8,7 @@ import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.teamcode.GoldManager;
 import org.firstinspires.ftc.teamcode.Projects.Project0;
+import org.firstinspires.ftc.teamcode.Projects.Project2;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -22,7 +23,7 @@ public class GoldAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Project0 robot = new Project0();
+        Project2 robot = new Project2();
         robot.init(hardwareMap);
         goldManager = new GoldManager();
 
@@ -43,10 +44,11 @@ public class GoldAuto extends LinearOpMode {
             int location = 0;
 
             VectorF vectorF;
-            //ioBF
+            //Index of Best Fit is a measure of the contour index which has the highest fitness
             int indexofBestFit = 0;
             double topFitness = 0;
             Rect bestRect = new Rect(0, 0, 1, 1);
+            //Fitness Algorithm
             for (int i = 0; i < contours.size(); i++) {
                 Rect boundingRect = Imgproc.boundingRect(contours.get(i));
                 double fitness = boundingRect.size().area();
@@ -95,6 +97,12 @@ public class GoldAuto extends LinearOpMode {
 
         robot.leftMotor .setPower(0);
         robot.rightMotor.setPower(0);
+
+        while(opModeIsActive() && eTime.time() < 7){
+            robot.markerServo.setPosition(1);
+        }
+        sleep(1000);
+
 
         goldManager.disable();
     }

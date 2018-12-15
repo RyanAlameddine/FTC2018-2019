@@ -9,7 +9,7 @@ import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.teamcode.GoldManager;
 import org.firstinspires.ftc.teamcode.Projects.Project0;
-import org.firstinspires.ftc.teamcode.Projects.Project1;
+import org.firstinspires.ftc.teamcode.Projects.Project2;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -24,20 +24,36 @@ public class GoldHANGAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Project1 robot = new Project1();
+        Project2 robot = new Project2();
         robot.init(hardwareMap);
+
+        robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftMotor.setPower(1f);
+        robot.liftMotor.setTargetPosition(robot.liftMotor.getCurrentPosition());
+
         goldManager = new GoldManager();
 
         goldManager.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
         goldManager.setShowContours(true);
         goldManager.enable();
         waitForStart();
-        HANG(robot);
+
+        robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.liftMotor.setPower(1);
+        sleep(2000);
+        robot.liftMotor.setPower(0);
+        sleep(1000);
+        robot.rightMotor.setPower(-.4f);
+        robot.leftMotor.setPower(.4f);
+        sleep(500);
+        robot.rightMotor.setPower(.2f);
+        robot.leftMotor.setPower(-.2f);
+        sleep(300);
 
         eTime.reset();
 
-
-        while(opModeIsActive() && eTime.time() < 2) {
+        while(opModeIsActive() && eTime.time() < 2.5) {
             goldManager.setShowThreshold(gamepad1.x);
 
             //List of Contours of detected gold
@@ -47,15 +63,21 @@ public class GoldHANGAuto extends LinearOpMode {
             int location = 0;
 
             VectorF vectorF;
-            //ioBF
+            //Index of Best Fit is a measure of the contour index which has the highest fitness
             int indexofBestFit = 0;
             double topFitness = 0;
             Rect bestRect = new Rect(0, 0, 1, 1);
+            //Fitness Algorithm
             for (int i = 0; i < contours.size(); i++) {
                 Rect boundingRect = Imgproc.boundingRect(contours.get(i));
-                if(boundingRect.size().area() > topFitness){
+                double fitness = boundingRect.size().area();
+                vectorF = new VectorF(boundingRect.x + boundingRect.width / 2f, boundingRect.y + boundingRect.height / 2f);
+                if(vectorF.get(0) > goldManager.hsv.cols() / 2){
+                    fitness = 0;
+                }
+                if(fitness > topFitness){
                     indexofBestFit = i;
-                    topFitness = boundingRect.size().area();
+                    topFitness = fitness;
                     //rectangle with the best fitness
                     bestRect = boundingRect;
                 }
@@ -76,18 +98,18 @@ public class GoldHANGAuto extends LinearOpMode {
             telemetry.update();
 
             if(location == -1){
-                robot.leftMotor .setPower(.6);
-                robot.rightMotor.setPower(-.6);
+                robot.leftMotor .setPower(.7);
+                robot.rightMotor.setPower(-.7);
             }else if(location == 1){
-                robot.leftMotor .setPower(-.6);
-                robot.rightMotor.setPower(.6);
+                robot.leftMotor .setPower(-.7);
+                robot.rightMotor.setPower(.7);
             }else{
-                robot.leftMotor .setPower(-.3);
-                robot.rightMotor.setPower(-.3);
+                robot.leftMotor .setPower(-.2);
+                robot.rightMotor.setPower(-.2);
             }
         }
 
-        while(opModeIsActive() && eTime.time() < 4.5) {
+        while(opModeIsActive() && eTime.time() < 5.5) {
             robot.leftMotor .setPower(-.6);
             robot.rightMotor.setPower(-.6);
         }
@@ -95,25 +117,12 @@ public class GoldHANGAuto extends LinearOpMode {
         robot.leftMotor .setPower(0);
         robot.rightMotor.setPower(0);
 
-        goldManager.disable();
-    }
-
-    void HANG(Project1 robot){
-        robot.liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        eTime.reset();
-
-
-        robot.liftMotor.setPower(1);
+        while(opModeIsActive() && eTime.time() < 7){
+            robot.markerServo.setPosition(1);
+        }
         sleep(1000);
-        sleep(5000);
-        robot.leftMotor.setPower(-.5);
-        robot.rightMotor.setPower(.5);
-        sleep(500);
-        robot.rightMotor.setPower(.5);
-        robot.leftMotor.setPower(.5);
-        sleep(500);
-        robot.rightMotor.setPower(-.5);
-        robot.leftMotor.setPower(.5);
-        sleep(500);
+
+
+        goldManager.disable();
     }
 }
