@@ -44,17 +44,41 @@ public class GoldHANGAuto extends LinearOpMode {
         sleep(2000);
         robot.liftMotor.setPower(0);
         sleep(1000);
-        robot.rightMotor.setPower(-.4f);
+        robot.rightMotor.setPower(-.9f);
+        robot.leftMotor .setPower( .9f);
+        sleep(500);
+        robot.rightMotor.setPower(0);
+        robot.leftMotor.setPower(0);
+        robot.liftMotor.setPower(-1);
+        sleep(2000);
+        robot.liftMotor.setPower(0);
+        while(robot.imu.getAngularOrientation().firstAngle > 5 | robot.imu.getAngularOrientation().firstAngle < -5){
+            robot.rightMotor.setPower( .9f);
+            robot.leftMotor .setPower(-.9f);
+        }
+        robot.rightMotor.setPower(.4f);
         robot.leftMotor.setPower(.4f);
         sleep(500);
-        robot.rightMotor.setPower(.2f);
-        robot.leftMotor.setPower(-.2f);
-        sleep(300);
-
+        //left imu.angularorientation positive
+        float offset = robot.imu.getAngularOrientation().firstAngle;
+        sleep(10);
         eTime.reset();
 
-        while(opModeIsActive() && eTime.time() < 2.5) {
+
+        float timeOffset = 0f;
+        while(opModeIsActive() && eTime.time() < timeOffset + 2.5f) {
             goldManager.setShowThreshold(gamepad1.x);
+
+            telemetry.addData("FA", robot.imu.getAngularOrientation().firstAngle);
+            telemetry.addData("time", timeOffset);
+            telemetry.update();
+            if(robot.imu.getAngularOrientation().firstAngle > 40) {
+                while (robot.imu.getAngularOrientation().firstAngle > -30) {
+                    robot.rightMotor.setPower(.9f);
+                    robot.leftMotor.setPower(-.9f);
+                    timeOffset = 2.5f;
+                }
+            }
 
             //List of Contours of detected gold
             List<MatOfPoint> contours = goldManager.getContours();
@@ -84,18 +108,13 @@ public class GoldHANGAuto extends LinearOpMode {
             }
             vectorF = new VectorF(bestRect.x + bestRect.width / 2f, bestRect.y + bestRect.height / 2f);
 
-            int screenThird = goldManager.hsv.rows() / 3;
-            if (vectorF.get(1) < screenThird) {
+            int screenThird = goldManager.hsv.rows() / 3 + 100;
+            if (vectorF.get(1) <= screenThird) {
                 location = -1;
             }
-            else if (vectorF.get(1) > 2 * screenThird) {
+            else if (vectorF.get(1) > goldManager.hsv.rows() - screenThird) {
                 location = 1;
             }
-
-            telemetry.addData("Rows", goldManager.hsv.rows());
-            telemetry.addData("Cols", goldManager.hsv.cols());
-            telemetry.addData("Loc", location);
-            telemetry.update();
 
             if(location == -1){
                 robot.leftMotor .setPower(.7);
@@ -109,15 +128,14 @@ public class GoldHANGAuto extends LinearOpMode {
             }
         }
 
-        while(opModeIsActive() && eTime.time() < 5.5) {
+        while(opModeIsActive() && eTime.time() < 5.5 + timeOffset) {
             robot.leftMotor .setPower(-.6);
             robot.rightMotor.setPower(-.6);
         }
 
-        robot.leftMotor .setPower(0);
-        robot.rightMotor.setPower(0);
+        robot.stop();
 
-        while(opModeIsActive() && eTime.time() < 7){
+        while(opModeIsActive() && eTime.time() < 7 + timeOffset){
             robot.markerServo.setPosition(1);
         }
         sleep(1000);

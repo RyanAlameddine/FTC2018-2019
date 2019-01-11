@@ -38,7 +38,6 @@ public class BasicTeleop extends LinearOpMode{
             }
 
             robot.markerServo.setPosition(gamepad1.right_trigger);
-            telemetry.addData("RT", gamepad1.right_trigger);
             telemetry.addData("IMU", robot.imu.getAngularOrientation());
             telemetry.update();
         }
