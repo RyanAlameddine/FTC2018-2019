@@ -41,10 +41,14 @@ public class GoldHANGAutoDepot extends LinearOpMode {
         robot.liftMotor.setPower(1);
         sleep(2000);
         robot.liftMotor.setPower(0);
-        sleep(1000);
-        robot.rightMotor.setPower(-.9f);
-        robot.leftMotor .setPower( .9f);
         sleep(500);
+        while(robot.imu.getAngularOrientation().firstAngle > 35 | robot.imu.getAngularOrientation().firstAngle < 25){
+            robot.rightMotor.setPower(-.9f);
+            robot.leftMotor .setPower( .9f);
+        }
+        robot.rightMotor.setPower(-.8f);
+        robot.leftMotor.setPower(-.8f);
+        sleep(100);
         robot.rightMotor.setPower(0);
         robot.leftMotor.setPower(0);
         robot.liftMotor.setPower(-1);
@@ -70,7 +74,7 @@ public class GoldHANGAutoDepot extends LinearOpMode {
             telemetry.addData("FA", robot.imu.getAngularOrientation().firstAngle);
             telemetry.addData("time", timeOffset);
             telemetry.update();
-            if(robot.imu.getAngularOrientation().firstAngle > 35) {
+            if(robot.imu.getAngularOrientation().firstAngle > 38) {
                 double start = eTime.time();
                 robot.rightMotor.setPower(-.8f);
                 robot.leftMotor.setPower(-.8f);
@@ -142,7 +146,7 @@ public class GoldHANGAutoDepot extends LinearOpMode {
         robot.rightMotor.setPower(.6f);
         robot.leftMotor .setPower(.6f);
         sleep(200);
-        float targetAngle = -robot.imu.getAngularOrientation().firstAngle * 2.5f;
+        float targetAngle = -robot.imu.getAngularOrientation().firstAngle * 1.3f;
         if(targetAngle > 40){
             targetAngle = 40;
         }
@@ -154,11 +158,11 @@ public class GoldHANGAutoDepot extends LinearOpMode {
         telemetry.update();
         while(opModeIsActive() && Math.abs(angle) > 15){
             if(angle < 0){
-                robot.rightMotor.setPower(-.9f);
-                robot.leftMotor .setPower(.9f);
+                robot.rightMotor.setPower(-.8f);
+                robot.leftMotor .setPower(.8f);
             }else{
-                robot.rightMotor.setPower(.9f);
-                robot.leftMotor .setPower(-.9f);
+                robot.rightMotor.setPower(.8f);
+                robot.leftMotor .setPower(-.8f);
             }
             angle = robot.imu.getAngularOrientation().firstAngle - targetAngle;
         }
@@ -173,6 +177,32 @@ public class GoldHANGAutoDepot extends LinearOpMode {
 
         robot.markerServo.setPosition(1);
         sleep(1000);
+
+        // CRATER
+        angle = robot.imu.getAngularOrientation().firstAngle;
+
+        telemetry.addData("angle", angle);
+        telemetry.update();
+        while(Math.abs(angle - 47) > 10 && opModeIsActive()) {
+            angle = robot.imu.getAngularOrientation().firstAngle;
+            if(angle < 47) {
+                robot.leftMotor.setPower ( .8f);
+                robot.rightMotor.setPower(-.8f);
+            }else {
+                robot.leftMotor.setPower (-.8f);
+                robot.rightMotor.setPower( .8f);
+            }
+            telemetry.addData("angle", angle);
+            telemetry.update();
+        }
+
+        eTime.reset();
+        while(opModeIsActive() && eTime.seconds() < 7) {
+            robot.leftMotor.setPower(.8f);
+            robot.leftMotor.setPower(.8f);
+            telemetry.addData("moving", true);
+            telemetry.update();
+        }
 
         robot.stop();
         goldManager.disable();

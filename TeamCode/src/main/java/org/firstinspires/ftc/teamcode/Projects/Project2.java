@@ -56,7 +56,7 @@ public class Project2
         liftMotor .setPower(0);
 
         //reset servos
-        markerServo.setPosition(.5);
+        markerServo.setPosition(0);
     }
 
     public void stop(){

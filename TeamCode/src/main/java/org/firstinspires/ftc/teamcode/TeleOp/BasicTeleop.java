@@ -28,7 +28,6 @@ public class BasicTeleop extends LinearOpMode{
             robot.rightMotor.setPower(gamepad1.right_stick_y * speedMultiplier);
             robot.leftMotor .setPower(gamepad1.left_stick_y  * speedMultiplier);
 
-
             if(gamepad1.dpad_up){
                 robot.liftMotor.setPower(1);
             }else if(gamepad1.dpad_down){
@@ -37,8 +36,14 @@ public class BasicTeleop extends LinearOpMode{
                 robot.liftMotor.setPower(0);
             }
 
+            if(gamepad1.right_bumper){
+                //robot.clawServo.setPower(1);
+            }else if(gamepad1.left_bumper){
+                //robot.clawServo.setPower(0);
+            }
+
             robot.markerServo.setPosition(gamepad1.right_trigger);
-            telemetry.addData("IMU", robot.imu.getAngularOrientation());
+            telemetry.addData("angle", robot.imu.getAngularOrientation().firstAngle);
             telemetry.update();
         }
 

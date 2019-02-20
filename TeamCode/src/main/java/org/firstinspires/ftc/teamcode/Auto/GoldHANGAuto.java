@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.teamcode.GoldManager;
-import org.firstinspires.ftc.teamcode.Projects.Project0;
 import org.firstinspires.ftc.teamcode.Projects.Project2;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
@@ -26,7 +25,6 @@ public class GoldHANGAuto extends LinearOpMode {
     public void runOpMode() {
         Project2 robot = new Project2();
         robot.init(hardwareMap);
-
         robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.liftMotor.setPower(1f);
         robot.liftMotor.setTargetPosition(robot.liftMotor.getCurrentPosition());
@@ -43,10 +41,14 @@ public class GoldHANGAuto extends LinearOpMode {
         robot.liftMotor.setPower(1);
         sleep(2000);
         robot.liftMotor.setPower(0);
-        sleep(1000);
-        robot.rightMotor.setPower(-.9f);
-        robot.leftMotor .setPower( .9f);
         sleep(500);
+        while(robot.imu.getAngularOrientation().firstAngle > 35 | robot.imu.getAngularOrientation().firstAngle < 25){
+            robot.rightMotor.setPower(-.9f);
+            robot.leftMotor .setPower( .9f);
+        }
+        robot.rightMotor.setPower(-.8f);
+        robot.leftMotor.setPower(-.8f);
+        sleep(100);
         robot.rightMotor.setPower(0);
         robot.leftMotor.setPower(0);
         robot.liftMotor.setPower(-1);
@@ -69,15 +71,17 @@ public class GoldHANGAuto extends LinearOpMode {
         while(opModeIsActive() && eTime.time() < timeOffset + 2.5f) {
             goldManager.setShowThreshold(gamepad1.x);
 
-            telemetry.addData("FA", robot.imu.getAngularOrientation().firstAngle);
-            telemetry.addData("time", timeOffset);
-            telemetry.update();
-            if(robot.imu.getAngularOrientation().firstAngle > 40) {
-                while (robot.imu.getAngularOrientation().firstAngle > -30) {
-                    robot.rightMotor.setPower(.9f);
-                    robot.leftMotor.setPower(-.9f);
-                    timeOffset = 2.5f;
+            if(robot.imu.getAngularOrientation().firstAngle > 38) {
+                double start = eTime.time();
+                robot.rightMotor.setPower(-.8f);
+                robot.leftMotor.setPower(-.8f);
+                sleep(200);
+                while (robot.imu.getAngularOrientation().firstAngle > -35) {
+                    robot.rightMotor.setPower(1f);
+                    robot.leftMotor.setPower(-1f);
+
                 }
+                timeOffset += eTime.time() - start + 1;
             }
 
             //List of Contours of detected gold
@@ -128,19 +132,14 @@ public class GoldHANGAuto extends LinearOpMode {
             }
         }
 
-        while(opModeIsActive() && eTime.time() < 5.5 + timeOffset) {
+        while(opModeIsActive() && eTime.time() < 5 + timeOffset) {
             robot.leftMotor .setPower(-.6);
             robot.rightMotor.setPower(-.6);
         }
 
         robot.stop();
 
-        while(opModeIsActive() && eTime.time() < 7 + timeOffset){
-            robot.markerServo.setPosition(1);
-        }
-        sleep(1000);
-
-
+        robot.stop();
         goldManager.disable();
     }
 }
